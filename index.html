@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>devxrantek</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Animated Background Circles */
+.bg{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:-1;
+    overflow:hidden;
+}
+
+.bg span{
+    position:absolute;
+    display:block;
+    width:200px;
+    height:200px;
+    background:rgba(99,102,241,0.2);
+    border-radius:50%;
+    animation:float 20s linear infinite;
+    bottom:-200px;
+}
+
+.bg span:nth-child(1){
+    left:10%;
+    animation-duration:18s;
+}
+.bg span:nth-child(2){
+    left:40%;
+    animation-duration:22s;
+}
+.bg span:nth-child(3){
+    left:70%;
+    animation-duration:25s;
+}
+.bg span:nth-child(4){
+    left:85%;
+    animation-duration:20s;
+}
+
+@keyframes float{
+    0%{transform:translateY(0) rotate(0deg);}
+    100%{transform:translateY(-1200px) rotate(360deg);}
+}
+
+.container{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+    text-align:center;
+}
+
+.profile{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid rgba(255,255,255,0.15);
+    box-shadow:0 0 40px rgba(99,102,241,0.5);
+    margin-bottom:20px;
+    transition:0.4s;
+}
+
+.profile:hover{
+    transform:scale(1.07);
+}
+
+h1{
+    font-size:42px;
+    font-weight:700;
+}
+
+.typing{
+    font-size:20px;
+    margin-top:10px;
+    opacity:0.8;
+}
+
+.about-section{
+    margin-top:60px;
+    max-width:800px;
+    padding:40px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+}
+
+.about-section h2{
+    margin-bottom:20px;
+    font-size:28px;
+}
+
+.about-section p{
+    line-height:1.8;
+    opacity:0.9;
+}
+
+.stats{
+    display:flex;
+    gap:30px;
+    margin-top:30px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.stat{
+    background:rgba(255,255,255,0.08);
+    padding:20px 35px;
+    border-radius:15px;
+}
+
+.buttons{
+    margin-top:30px;
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.btn{
+    padding:12px 25px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.primary{
+    background:#6366f1;
+    color:white;
+}
+
+.primary:hover{
+    background:#4f46e5;
+}
+
+.outline{
+    border:2px solid #6366f1;
+    color:#6366f1;
+}
+
+.outline:hover{
+    background:#6366f1;
+    color:white;
+}
+
+footer{
+    margin-top:60px;
+    font-size:14px;
+    opacity:0.6;
+}
+
+@media(max-width:768px){
+    h1{font-size:30px;}
+    .about-section{padding:25px;}
+}
+</style>
+</head>
+<body>
+
+<div class="bg">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+<div class="container">
+
+<img class="profile" src="https://images-ext-1.discordapp.net/external/e-Ec1OBFAD3VyjoZjoVYaSgPjs0EXvy8JzXwqZDHYo0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1450768076491591821/63556d91c6fe831c3a8298ae8ea2ffa6.png?format=webp&quality=lossless">
+
+<h1>devxrantek</h1>
+<div class="typing" id="typing"></div>
+
+<div class="about-section">
+<h2>About Me</h2>
+<p>
+I'm devxrantek — focused on building digital presence, strong communities, and creative online projects.  
+I work on development, server management, branding, and design strategies that help ideas grow and stand out.
+</p>
+
+<div class="stats">
+<div class="stat">
+<h3 id="projects">0+</h3>
+<p>Projects</p>
+</div>
+<div class="stat">
+<h3 id="community">0+</h3>
+<p>Community Members</p>
+</div>
+<div class="stat">
+<h3 id="experience">0+</h3>
+<p>Years Experience</p>
+</div>
+</div>
+
+<div class="buttons">
+<a href="https://discord.gg/VHxcnheY" target="_blank" class="btn primary">Support Server</a>
+<button onclick="copyDiscord()" class="btn outline">Copy Discord</button>
+</div>
+
+</div>
+
+<footer>
+© 2026 devxrantek — All Rights Reserved
+</footer>
+
+</div>
+
+<script>
+const texts = ["Developer", "Community Builder", "Creative Thinker"];
+let count = 0;
+let index = 0;
+let currentText = "";
+let letter = "";
+
+(function type(){
+    if(count === texts.length){count = 0;}
+    currentText = texts[count];
+    letter = currentText.slice(0, ++index);
+    document.getElementById("typing").textContent = letter;
+    if(letter.length === currentText.length){
+        count++;
+        index = 0;
+        setTimeout(type, 1200);
+    } else {
+        setTimeout(type, 100);
+    }
+})();
+
+function animateValue(id, start, end, duration){
+    let range = end - start;
+    let current = start;
+    let increment = 1;
+    let stepTime = Math.abs(Math.floor(duration / range));
+    let obj = document.getElementById(id);
+    let timer = setInterval(function(){
+        current += increment;
+        obj.textContent = current + "+";
+        if(current >= end){
+            clearInterval(timer);
+        }
+    }, stepTime);
+}
+
+animateValue("projects",0,50,2000);
+animateValue("community",0,1000,2000);
+animateValue("experience",0,2,2000);
+
+function copyDiscord(){
+    navigator.clipboard.writeText("devxrantek");
+    alert("Discord copied!");
+}
+</script>
+
+</body>
+</html>
